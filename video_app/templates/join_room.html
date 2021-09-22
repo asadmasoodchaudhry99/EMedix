@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/create.css' %}">
+    <link rel="stylesheet" type="text/css" href="../static/css/create.css">
+    
+    <title>Twilio Video</title>
+</head>
+<body>
+    <div class="container">
+
+            <h2>Please enter your name</h2>
+            <form action="" method="POST">
+                 {% csrf_token %}
+                <label for="id_person_name"> </label>
+                <input type="text" name="person_name" maxlength="100" required="" id="id_person_name">
+                <input value="Join Room" type="submit" class="btn btn-success" id ="submit">
+            </form>      
+    </div>
+    
+    <script src="//media.twiliocdn.com/sdk/js/video/releases/2.0.0/twilio-video.min.js"></script>
+</body>
+</html>

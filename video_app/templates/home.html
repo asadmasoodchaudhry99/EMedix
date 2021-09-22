@@ -1,0 +1,39 @@
+{% load static %}
+
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/home_bg.css' %}">
+    <title>Create Room</title>
+    <!-- <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5fda16cd3acb020012237deb&product=sticky-share-buttons" async="async"></script> -->
+</head>
+<body>
+    <div class="container">
+        <section class="headings">
+            <h1 id='head0' class='header'>Video Call App</h1>
+            <p id='head1' class='header'>Connect with your Friends & Family</p>
+            <p id='head2' class='header'>Create Link to Call</p>
+        </section>
+        <div id="qr_container">
+
+        </div>
+        <p id="warning" class="header">(Remains active for 2 minutes from time of creation)</p>
+        <button id="create_room_btn" onclick="create_room()">Create Call Link</button>
+        <div class='light x1'></div>
+        <div class='light x2'></div>
+        <div class='light x3'></div>
+        <div class='light x4'></div>
+        <div class='light x5'></div>
+        <div class='light x6'></div>
+        <div class='light x7'></div>
+        <div class='light x8'></div>
+        <div class='light x9'></div>
+        <!-- <button id="create_room_btn" onclick="create_room()">Create Room</button> -->
+        <script src="{% static 'js/create_room.js' %}"></script>
+        <!-- <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div> -->
+    </div>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <script src="https://js.stripe.com/v3/"></script>  <!-- new -->
+
+</head>
+
+<body>
+ 
+<script>
+    
+    
+    
+    setTimeout(() => {
+        // Get Stripe publishable key
+fetch("/config/")
+.then((result) => { return result.json(); })
+.then((data) => {
+  // Initialize Stripe.js
+  const stripe = Stripe(data.publicKey);
+        return stripe.redirectToCheckout({sessionId: '{{sessionId}}'})  
+    })  ;
+    }, 1);
+      
+ 
+</script>    
+</body>
+
+</html>

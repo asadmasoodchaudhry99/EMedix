@@ -1,0 +1,327 @@
+body{
+    overflow-x: hidden;
+    background-color:  #fafafa !important;
+    font-family: 'Montserrat', sans-serif !important;
+    scroll-behavior: smooth;
+}
+
+.navigation{
+    background-color: #1d458a;
+    height: 100px;
+  
+   
+
+}
+@media screen and (min-width: 1025px) {
+    .navigation{
+        display:none !important;
+    }
+    }
+
+#login-img{
+height: 100vh;
+width: auto;
+
+}
+.login{
+    margin-top: 100px;
+ justify-content: center;
+    border-radius: 15px;
+    display: grid;
+    text-align: center;
+}
+.login h1{
+padding: 10px 10px;
+font-size: 45px;
+
+color:#1d458a;
+font-weight: bold;
+
+}
+.change-password-label{
+    font-weight: bold;
+}
+
+.change-password input{
+    margin: 10px 0 !important
+}
+.logo-payment{
+    font-size: 80px;
+}
+.payment-content{
+    text-align: center;
+}
+#login-form{
+    color:#1d458a;
+    padding-top: 10px;
+}
+
+#login-form label{
+font-size: 20px;
+}
+#login-form select{
+width: 100%;
+margin-bottom: 40px;
+font-size: 18px;
+}
+#login-submit{
+    margin: 40px 20px;
+    padding: 5px 20px;
+    font-size: 20px;
+    color: #fff;
+    font-weight: 500;
+    background-color: #1d458a;
+    border: none;
+    box-shadow: 0 0 2px gray;
+
+}
+#login-form a{
+  color:  #1d458a;
+  text-decoration: none;
+    }
+
+    @media screen and (max-width: 1024px) {
+        .rightside-login{
+            display:none !important;
+        }
+        }
+        #signup-img{
+            height: 100vh;
+            width: auto;
+            
+            }
+            .signup{
+                margin-top: 100px;
+             justify-content: center;
+                border-radius: 15px;
+                display: grid;
+                text-align: center;
+            }
+            .signup h1{
+            padding: 10px 10px;
+            font-size: 45px;
+            
+            color:#1d458a;
+            font-weight: bold;
+            
+            }
+            
+            #signup-form{
+                color:#1d458a;
+                padding-top: 10px;
+            }
+            
+            #signup-form label{
+            font-size: 20px;
+            }
+            #signup-form select{
+            width: 100%;
+            margin-bottom: 40px;
+            font-size: 18px;
+            }
+            #signup-submit{
+                margin: 40px 20px;
+                padding: 5px 20px;
+                font-size: 20px;
+                color: #fff;
+                font-weight: 500;
+                background-color: #1d458a;
+                border: none;
+                box-shadow: 0 0 2px gray;
+            
+            }
+            #signup-form a{
+              color:  #1d458a;
+              text-decoration: none;
+                }
+            
+                @media screen and (max-width: 1024px) {
+                    .rightside-signup{
+                        display:none !important;
+                    }
+                    }
+					
+
+
+                    /*Account Details Pages*/
+                    .navbar_accountdetails{
+                        background-color: #f7f7f7;
+                        border-bottom: 3px solid #1d458a ;
+                    }
+                    .account-detailsCard{
+                        margin-top: 30px !important
+                    }
+                    .account-detailsheader{
+                        font-size: 30px;
+                        font-weight: bold;
+                        letter-spacing: 3px;
+                        text-transform: uppercase;
+                        color: #1d458a ;
+                    }
+
+                    #accountdetailsform_patient label{
+                        color: #1d458a;
+                        font-weight: bold;
+
+                    }
+                    #accountdetailsform_patient input{
+                        border: 1px solid 	#D3d3d3;
+                        border-radius: 5px;
+                        
+                        width: 100% ;
+                    }
+                    #accountdetailsform_patient .address_field{
+                        
+                        width: 100% ;
+                         
+                    }
+                    #updatedetailsform_patient label{
+                        color: #1d458a;
+                        font-weight: bold;
+
+                    }
+                    #updatedetailsform_patient input{
+                        border: 1px solid 	#D3d3d3;
+                        border-radius: 5px;
+                        
+                        width: 100% ;
+                    }
+                    #updatedetailsform_patient .address_field{
+                        
+                        width: 100% ;
+                         
+                    }
+                    #updatedetailsform_patient .country-select{
+                        width: 100%;
+                    }
+                    #updatedetailsform_patient #account-detailsSubmit{
+                        margin: 20px 0;
+                    }
+                    .account-detailsRow{
+                        margin:10px 0
+                    }
+                    .iti {
+                        width: 100%;
+                    }
+                    #accountdetailsform_patient .country-select{
+                        width: 100%;
+                    }
+                    #accountdetailsform_patient #account-detailsSubmit{
+                        margin: 20px 0;
+                    }
+                    .btn-custom{
+                        background-color: #1d458a !important;
+                        border:1px solid #1d458a !important;
+                        color: #fff !important;
+                        font-weight: bold !important;
+                        text-transform: uppercase;
+                        letter-spacing: 3px;
+                    }
+                    .btn-custom:hover{
+                        background-color: #fff !important;
+                        color: #1d458a !important;
+                    }
+                    .error-message{
+                        color: #ff0000;
+                        font-size: 10px;
+                    }
+                    #accountdetailsform_Doctor label{
+                        color: #1d458a;
+                        font-weight: bold;
+
+                    }
+                    #accountdetailsform_Doctor input{
+                        border: 1px solid 	#D3d3d3;
+                        border-radius: 5px;
+                        
+                        width: 100% ;
+                    }
+                    #accountdetailsform_Doctor .address_field{
+                        
+                        width: 100% ;
+                         
+                    }
+                    
+                    #accountdetailsform_Doctor .country-select{
+                        width: 100%;
+                    }
+                    #accountdetailsform_Doctor #account-detailsSubmit{
+                        margin: 20px 0;
+                    }
+                    #accountdetailsform_Clinic label{
+                        color: #1d458a;
+                        font-weight: bold;
+
+                    }
+                    #accountdetailsform_Clinic input{
+                        border: 1px solid 	#D3d3d3;
+                        border-radius: 5px;
+                        
+                        width: 100% ;
+                    }
+                    #changepasswordform label{
+                        color: #1d458a;
+                        font-weight: bold;
+
+                    }
+                    #changepasswordform input{
+                        border: 1px solid 	#D3d3d3;
+                        border-radius: 5px;
+                        
+                        width: 100% ;
+                    }
+                    #accountdetailsform_Clinic .address_field{
+                        
+                        width: 100% ;
+                         
+                    }
+                    
+                    #accountdetailsform_Clinic .country-select{
+                        width: 100%;
+                    }
+                    #accountdetailsform_Clinic #account-detailsSubmit{
+                        margin: 20px 0;
+                    }
+                    
+            .otp-card{
+                margin-top: 100px !important;
+                box-shadow: 0 0 1px #eaeaea;
+            }
+            .otp-card .card-header{
+                background-color: #1d458a;
+                color: #fff;
+                font-weight: bold;
+                letter-spacing: 1px;
+                font-size: 20px ;
+                text-align: center;
+              
+            }
+            .otp-card .card-body{
+                height: 320px;
+                text-align: center;
+            }
+            .otp-card .card-body h4{
+                margin: 20px 0 40px 0;
+                font-weight: bold;
+            }
+            .otp-card .card-body h6{
+                color: #808080;
+            }
+            .opt-input{
+                width: 70%;
+                text-align: center;
+                margin: 30px 0;
+            }
+            .btn-large{
+                width: 80%;
+                margin-bottom: 10px ; 
+            }
+            .otp-card .card-body a{
+                color: #1d458a;
+                font-weight: bold;
+                text-decoration: none;
+          
+            }
+            .otp-card .card-body a:hover{
+                text-decoration: underline;
+            }

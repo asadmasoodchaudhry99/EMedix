@@ -1,0 +1,97 @@
+{% include 'EMedix_App/base.html' %}
+<style> #toast-container > .toast-error { background-color: #BD362F; } </style>
+<body>
+    <nav id="topNav" class="navbar navbar-toggleable-sm navbar-inverse  navbar_accountdetails">
+       
+   
+        <a class="navbar-brand mx-auto" href="mainpage"><img src="static/images/logo.png" height="60"></a>
+      
+    </nav>
+
+
+    <div class="container">
+
+    <div class="row"></div>
+        <div class="card otp-card">
+            <div class="card-header">
+                OTP VERIFICATION
+            </div>
+            <div class="card-body">
+             
+                <h4>An Email has been send to your registered Email Address.</h4>
+                <h6>Kindly input the otp in the input field below to access your dashboard.</h6>
+                <form method="POST">{% csrf_token %}
+                    <input class="opt-input" name='otp'type="number" placeholder="Enter your Otp" required><br>
+                        <input class="btn btn-large btn-custom" type="submit">
+                </form>
+                <a href="/otpresend">Resend OTP?</a>
+                
+            </div>
+        </div>
+    
+    
+        <script>
+            var message = '{{message}}'
+     console.log(message)
+          if(message == 'Incorrect OTP Entered'){
+              
+            window.onload = function() {
+                showDangerToast();
+        };}
+
+
+        showDangerToast = function() {
+    'use strict';
+    resetToastPosition();
+    $.toast({
+      heading: 'Error',
+      text: '{{message}}',
+      showHideTransition: 'slide',
+      icon: 'error',
+      loaderBg: '#f2a654',
+      position: 'top-right'
+    })
+  };
+
+  resetToastPosition = function() {
+    $('.jq-toast-wrap').removeClass('bottom-left bottom-right top-left top-right mid-center'); // to remove previous position class
+    $(".jq-toast-wrap").css({
+      "top": "",
+      "left": "",
+      "bottom": "",
+      "right": ""
+    }); //to remove previous position style
+  }
+        function checkotpstatus(){
+
+            
+            toastr["error"]("{{message}}")
+
+toastr.options = {
+  "closeButton": false,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": true,
+  showHideTransition: 'slide',
+      icon: 'error',
+      loaderBg: '#f2a654',
+      position: 'top-right',
+  "positionClass": "toast-top-right",
+  "preventDuplicates": false,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
+        }
+            
+        </script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel = "icon" href="static/images/logo.png"  type = "image/x-icon">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <script src="https://js.stripe.com/v3/"></script>  <!-- new -->
+    <script src="static/js/testpayment.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!-- Custom fonts for this template-->
+    <link href="static/dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="static/dashboard/css/sb-admin-2.min.css" rel="stylesheet">
+       <!-- Custom styles for this page -->
+       <link href="static/dashboard/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+       <link href="static/css/dashboard.css" rel="stylesheet" type="text/css">
+
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+      
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <div class="nav-brand">
+                    <img src="static/images/logo.png" width="100"/>
+                    
+                </div>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                    
+
+                     
+                        
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{request.user.first_name}}</span>
+                                <img class="img-profile rounded-circle"
+                                    src="static/dashboard/img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="/updateProfile_patient">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <a class="dropdown-item" href="uploadrecords">                            
+                                    <i class="fas fa-notes-medical fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Upload Medical Record
+                                </a>
+                                <a class="dropdown-item" href="changepassword">
+                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Change Password
+                                </a>
+                              
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800"> <i class="fas fa-fw fa-tachometer-alt"></i> Dashboard</h1>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Upcoming Appointments</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{upcomingbookings}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-6 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Total Appointments</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{totalbookings}}</div>
+                                        </div>
+                                        <div class="col-auto">
+                                            <i class="fas fa-clock fa-2x text-gray-300"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                       
+                       
+                    </div>
+
+                      <!-- DataTales Example -->
+                      <div class="card shadow mb-4">
+                      
+                            <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Appointements</h6>
+                            <div class="dropdown no-arrow">
+                             <button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#bookingModal">Book New Appointment</button>
+                            </div>
+                        </div>
+                   <!-- Modal -->
+<div class="modal w-100 fade" id="bookingModal" tabindex="-1" role="dialog" aria-labelledby="bookingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-primary font-weight-bold" id="bookingModalLabel" >Book Appointment</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <form method="POST" id="BookingAppointment" action="BookAppointment">{% csrf_token %}
+        <div class="modal-body">
+          <p class="text-center text-gray-800">Kindly Fill in the following to confirm your booking.</p>
+
+          <div class="row">
+            <div class="col-xl-12">
+                <label for="departmentname" class="text-primary mb-0">
+                    Department Name:
+                </label>
+                <select id="departmentname" name="departmentname" required class="book-appointment-fields" onchange="displaydoctor(this.value)">
+                   <option value=""disabled selected>Select an option</option>
+                    {% for i in departments %}
+                   <option >{{i}}</option>
+                   {% endfor %}
+                </select>
+            </div>
+            {% for i,k in doctordata.items %}
+            <div class="col-xl-12 temp_display display-none"  id='{{i}}' >
+                <label for="doctorname" class="text-primary mb-0">
+                    Doctor Name
+                </label>
+              
+                
+                <select  name="doctorname-{{i}}"  class="book-appointment-fields" onchange="getPrice(this.value)">
+                    <option value=""disabled selected>Select an option</option>
+                    {% for j in k %}
+                    <option value="{{j.id}}">{{j.user.get_full_name}}</option>
+                    
+                    {% endfor %}
+                </select>
+              
+            </div>
+            {% endfor %}
+          <script>
+            let doctorcategories = document.querySelectorAll(".temp_display"); 
+
+              function displaydoctor(department){
+                    hideAllElements();
+                    document.getElementById(department).classList.remove("display-none")
+                }
+                  function hideAllElements(){
+                      doctorcategories.forEach((doctorcategory) => {
+                        doctorcategory.classList.add("display-none");
+                      });
+                  }
+              
+          </script>
+            <div class="col-xl-12">
+                <label for="timeofbooking" class="text-primary mb-0">
+                    Timing:
+                </label>
+               <input type="datetime-local" required id="timeofbooking" name="timeofbooking" class="book-appointment-fields" min="20-4-1999"/>
+            </div>
+            <script>
+
+            </script>
+            <div class="col-xl-12">
+                <label for="bookingtype" class="text-primary mb-0">
+                    Booking Type:
+                </label>
+                <select id="bookingtype" required name="bookingtype" class="book-appointment-fields">
+                    <option value="online">Online</option>
+                    <option value="inclinic">Inclinic</option>
+                </select>  
+            
+            </div>
+            <div class="col-xl-12">
+                <label for="explaination" class="text-primary mb-0">
+                    Explaination:
+                </label>
+                <textarea id="explaination" required name="explaination" class="book-appointment-fields" placeholder="Enter text here."></textarea>
+               
+            </div>
+            <div class="col-xl-12">
+                <h4 class="text-primary text-center font-weight-bold price-headings">Consultation Charges</h4>
+                <p class="text-gray-800 text-center " id="consultationcharges">(Estimated Amount)</p>
+            </div>
+<script>
+    function getPrice(value){
+        $.get('/ConsultationCharges/' + value, function (a){
+            document.getElementById('consultationcharges').innerText = "USD " + a; 
+        });
+    }
+  
+
+</script>
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary" id="submitBtn" >Book Appointment</button>
+        </div>
+    </form>
+      </div>
+    </div>
+  </div>
+                     
+                        <div class="card-body">
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Doctor Name</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            
+                                            <th>Charges</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Doctor Name</th>
+                                            <th>Date</th>
+                                            <th>Time</th>
+                                            
+                                            <th>Charges</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for i in bookinglist %}
+                                        <tr>
+                                            <td>{{i.doctor.user.get_full_name}}</td>
+                                            <td>{{i.timing.date}}</td>
+                                            <td>{{i.timing.time}}</td>
+                                            
+                                            <td>USD {{i.doctor.consultationcharges}}</td>
+                                            
+
+                                            <td>
+                                            {% if not i.prescription_status %}
+                                                <button type="button"  disabled  class="btn btn-primary w-100">No Prescription Yet</button>
+                                            {% else %}
+                                            <button type="button"  data-toggle="modal" data-target="#{{i.doctor.user.first_name}}-{{i.id}}"  class="btn btn-primary w-100">View Prescription</button>
+                                            </td>
+                                        </tr>
+
+<!-- Modal -->
+<div class="modal fade" id="{{i.doctor.user.first_name}}-{{i.id}}" tabindex="-1" role="dialog" aria-labelledby="{{i.doctor.user.first_name}}" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-primary" id="{{i.doctor.user.first_name}}">Prescription:</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="card">
+              <div class="card-body Prescription-view">
+             
+                <p class=" text-grey-800">{{i.prescription}}
+                </p>
+               
+              </div>
+              
+          </div>
+          <button class="btn btn-custom" onclick="tabiyatpk()">Buy Medicine online from Tabiyat.pk</button>
+        </div>
+        <script>
+            function tabiyatpk(){
+                window.open('https://www.tabiyat.pk/').focus();
+            }
+        </script>
+        <div class="modal-footer modal-footer-paitent" >
+      
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Modal -->
+
+  {% endif %}
+                                        {% endfor %}
+                                       
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+
+                
+             
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; E-Medix 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="#" onclick="window.location.href='/logout'">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="static/dashboard/vendor/jquery/jquery.min.js"></script>
+    <script src="static/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="static/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="static/dashboard/js/sb-admin-2.min.js"></script>
+
+   
+        
+    <!-- Page level plugins -->
+    <script src="static/dashboard/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="static/dashboard/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    
+    <!-- Page level custom scripts -->
+    <script src="static/dashboard/js/demo/datatables-demo.js"></script>
+
+</body>
+
+</html>

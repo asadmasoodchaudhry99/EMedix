@@ -1,0 +1,54 @@
+{% include 'EMedix_App/base.html' %}
+<body>
+    <nav class="navbar navigation">
+        <div class="container-fluid">
+          <span class="navbar-brand mx-auto"><img src="static/images/logoinverse.png" width="150"></span>
+        </div>
+      </nav>
+    <div class="container-fluid">
+        <div class="row">
+               <div class="col-xl-6">
+
+                <div class="leftside-login">
+                 
+<div class="login">
+
+<div class="row">
+
+    <h1>LOGIN</h1>
+</div>
+<div class="row">
+  {% if message %}
+  <div class="alert alert-danger" role="alert">
+      {{message}}
+  </div>
+  {% endif %}
+    <form id="login-form" method="POST">{% csrf_token %}
+      <br><br>
+        <label for="username-login"><i class="fas fa-user"></i> </label>
+        <input type="text" id="username-login" name="username-login" placeholder="UserName"><br><br>
+        <label for="password-login"><i class="fas fa-unlock"></i></label>
+        <input type="password" id="password-login" name="password-login" placeholder="Password"><br><br>
+       <input type="submit" value="Login" id="login-submit">
+        <a href="/signup">Register?</a>
+      </form>
+</div>
+
+</div>
+                      
+                </div>
+               </div>
+
+                <div class="col-xl-6">
+                    
+                    <div class="rightside-login">
+<img src="static/images/DOCTOR.jpg" id="login-img">
+                    </div>
+                </div>
+
+        </div>
+
+
+    </div>
+</body>
+</html>

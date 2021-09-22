@@ -1,0 +1,64 @@
+{% include 'EMedix_App/base.html' %}
+
+<body>
+    <nav class="navbar navigation">
+        <div class="container-fluid">
+          <span class="navbar-brand mx-auto"><img src="static/images/logoinverse.png" width="150"></span>
+        </div>
+      </nav>
+    <div class="container-fluid">
+        <div class="row">
+               <div class="col-lg-6">
+
+                <div class="leftside-signup">
+                 
+<div class="signup">
+
+<div class="row">
+
+    <h1>SIGN UP</h1>
+</div>
+<div class="row">
+  {% if message %}
+  <div class="alert alert-danger" role="alert">
+      {{message}}
+  </div>
+  {% endif %}
+    <form id="signup-form" method="POST">{% csrf_token %}
+      <label for="signup-type">SignUp As:</label>
+        <select id="signup-type" name="signup-type">
+    
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+            <option value="clinic">Clinic</option>
+        </select><br><br>
+        <label for="username-signup"><i class="fas fa-user"></i> </label>
+        <input type="text" id="username-signup" name="username-signup" placeholder="UserName"><br><br>
+        <label for="password-lsignup"><i class="fas fa-unlock"></i></label>
+        <input type="password" id="password-signup" name="password-signup" placeholder="Password"><br><br>
+     <!--   <label for="confirmpassword-signup"><i class="fas fa-lock"></i></label>
+        <input type="password" id="confirmpassword-signup" name="confirmpassword-signup" placeholder="Confirm Password"><br><br>
+      -->
+        <input type="submit" value="Sign Up" id="signup-submit">
+        <a href="/login">Login?</a>
+      </form>
+</div>
+
+</div>
+                      
+                </div>
+               </div>
+
+                <div class="col-lg-6">
+                    
+                    <div class="rightside-signup">
+<img src="static/images/DOCTOR.jpg" id="signup-img">
+                    </div>
+                </div>
+
+        </div>
+
+
+    </div>
+</body>
+</html>

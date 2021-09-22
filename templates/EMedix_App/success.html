@@ -1,0 +1,43 @@
+{% include 'EMedix_App/base.html' %}
+<body>
+
+    <nav id="topNav" class="navbar navbar-toggleable-sm navbar-inverse  navbar_accountdetails">
+       
+   
+        <a class="navbar-brand mx-auto" href="#"><img src="static/images/logo.png" height="60"></a>
+      
+    </nav>
+<div class="container">
+<div class="card">
+    <div class="card-header text-center text-primary text-uppercase">
+      <h1>  Payment Status</h1>
+    </div>
+    <div class="card-body">
+
+        <div class="alert alert-success">
+            
+         <div class="logo-payment text-center">   <i class="fas fa-check-circle"></i> </div>
+        <div class="payment-content">
+            <h3>Your Payment was successful.</h3>
+            <h6 class="text-gray">You will redirected to the Dashboard in <span id="timeleftcounter" style="font-weight: bold;">5</span>.</h6>
+        </div>
+        
+        </div>
+    
+    </div>
+</div>
+</div>
+<script>
+        var timeleft = 5;
+    var downloadTimer = setInterval(function(){
+    timeleft--;
+    document.getElementById("timeleftcounter").textContent = timeleft;
+    if(timeleft <= 0)
+        clearInterval(downloadTimer);
+    },1000);
+
+    setTimeout(function(){
+    window.location.href = '/PatientDashboard';
+ }, 5000);
+</script>
+</html>

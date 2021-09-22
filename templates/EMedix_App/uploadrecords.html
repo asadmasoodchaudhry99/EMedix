@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel = "icon" href="static/images/logo.png"  type = "image/x-icon">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>
+        {% block head %}
+        Upload 
+        {% endblock %}
+        Medical Records</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.2/css/bulma.min.css">
+    <link rel="stylesheet" href="static/css/jquery.toast.min.css">
+    <script src="https://js.stripe.com/v3/"></script>  <!-- new -->
+    
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <!-- Custom fonts for this template-->
+    <link href="/static/dashboard/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+      <!-- Bootstrap core JavaScript-->
+      <script src="/static/dashboard/vendor/jquery/jquery.min.js"></script>
+      <script src="/static/dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
+      <!-- Core plugin JavaScript-->
+      <script src="/static/dashboard/vendor/jquery-easing/jquery.easing.min.js"></script>
+  
+      <!-- Custom scripts for all pages-->
+      <script src="/static/dashboard/js/sb-admin-2.min.js"></script>
+  
+     
+          
+      <!-- Page level plugins -->
+  
+      
+      <!-- Page level custom scripts -->
+    <link href="/static/dashboard/css/sb-admin-2.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+       <!-- Custom styles for this page -->
+       <link href="/static/css/dashboard.css" rel="stylesheet" type="text/css">
+    <script src="static/js/jquery.toast.min.js"></script>
+</head>
+{% block content %}
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+      
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <div class="nav-brand">
+                    <img src="/static/images/logo.png" width="100"/>
+                    
+                </div>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+
+                    
+
+                     
+                        
+
+                        <div class="topbar-divider d-none d-sm-block"></div>
+
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">{{request.user.first_name}}</span>
+                                <img class="img-profile rounded-circle"
+                                    src="/static/dashboard/img/undraw_profile.svg">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="/PatientDashboard">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Dashboard
+                                </a>
+                              
+                              
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="/logout" >
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800"> <i class="fas fa-notes-medical"></i> Upload Medical Records</h1>
+                    </div>
+
+                    <!-- Content Row -->
+                    <div class="row">
+
+                        <!-- Earnings (Monthly) Card Example -->
+                        <div class="col-xl-12 col-md-12 mb-4">
+                            <div class="card border-left-primary shadow h-100 py-2">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                          <a data-toggle="modal" data-target="#exampleModal">
+                                            <div style="font-size: 60px" class="text-center text-primary font-weight-bold  text-uppercase mb-1">
+                                                <i class="fas fa-paperclip fa-2x "></i>
+                                            </div>
+                                            <div class="text-xs text-center font-weight-bold text-primary text-uppercase mb-1">
+                                                Upload Files</div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800 text-center">You can upload your past medical records and prescriptios.</div>
+                                            </a>
+                                        </div>
+                                   
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title text-primary font-weight-bold" id="exampleModalLabel">Add Medical Record</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="up" method="POST" enctype="multipart/form-data">{% csrf_token %}
+            <label class="text-primary mb-0" for="filerecord">Choose a file:</label>
+
+            <input class="book-appointment-fields" type="file" id="filerecord" onchange="checkfiles()" name="filerecord" required>
+            <div class="alert alert-danger mt-1 errormessage_files" id="error_message">*No File Attached</div>
+            <label class="text-primary mb-0" for="filerecorddesc">Description:</label>
+
+            <textarea class="book-appointment-fields" type="file" id="filerecorddesc" name="filerecorddesc"></textarea>
+        
+        </div>
+        <div class="modal-footer">
+        
+          <button type="button" class="btn btn-primary" form="up"  onclick="validateSubmitFiles()">Upload</button>
+       
+        </form>
+        </div>
+      </div>
+    </div>
+  </div>
+                      
+
+                       <script>
+                           
+                           function checkfiles(){
+                            document.getElementById("error_message").style = "display: none;"
+                           }
+                           function validateSubmitFiles(){
+                            if( document.getElementById("filerecord").files.length == 0 ){
+                                document.getElementById("error_message").style = "display: block;"
+                                
+                            }
+                                else{
+                            document.getElementById('up').submit();
+                           }
+                             
+
+                           }
+                          </script>
+                       
+                    </div>
+
+                      <!-- DataTales Example -->
+                      <div class="card shadow mb-4">
+                      
+                            <div
+                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                            <h6 class="m-0 font-weight-bold text-primary">Medical Records</h6>
+                         
+                        </div>
+                   
+                     
+                        <div class="card-body">
+                            <div class="table-responsive">
+
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>File</th>
+                                            <th>Uploaded On</th>
+                                            <th>Description</th>
+                                           
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>File</th>
+                                            <th>Uploaded On</th>
+                                            <th>Description</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for i in objs %}
+                                     <tr>
+                                         <td><a target="_blank" href="{{i.upfile.name}}">
+                                             {{i.upfile.name}}</a></td>
+                                         <td>{{i.date}}</td>
+                                        <td>{{i.desc}}</td>
+                                     </tr>
+                                     {% endfor %}
+
+
+
+
+                                       
+                                    
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Content Row -->
+
+                
+             
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; E-Medix 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+    {% endblock %}
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="#" onclick="window.location.href='/logout'">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var message = '{{message}}'
+        console.log(message)
+             if(message == 'File Successfully Uploaded!'){
+                 
+               window.onload = function() {
+                   showSuccessToast();
+           };
+           message = ''
+       
+       }
+   
+   
+   showSuccessToast = function() {
+       'use strict';
+       resetToastPosition();
+       $.toast({
+         heading: 'Success',
+         text: '  {{message}}',
+         showHideTransition: 'slide',
+         icon: 'success',
+         loaderBg: '#f96868',
+         position: 'top-right'
+       })
+     };
+ 
+     resetToastPosition = function() {
+       $('.jq-toast-wrap').removeClass('bottom-left bottom-right top-left top-right mid-center'); // to remove previous position class
+       $(".jq-toast-wrap").css({
+         "top": "",
+         "left": "",
+         "bottom": "",
+         "right": ""
+       }); //to remove previous position style
+     }
+   </script>
+  
+
+</body>
+
+</html>

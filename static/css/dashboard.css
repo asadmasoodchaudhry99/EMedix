@@ -1,0 +1,46 @@
+.book-appointment-fields{
+    width: 100% !important;
+    border: 1px solid #eaeaea !important;
+    border-radius: 5px !important;
+}
+.price-headings{
+    margin-top: 20px;
+}
+.display-none{
+    display: none;
+}
+.modal-footer-paitent{
+    background-color: #4e73df;
+}
+.Prescription-view{
+   
+    height: 200px;
+}
+.prescription_input{
+    border: 1px solid #eaeaea;
+    box-shadow:  0 0 1px #eaeaea;
+    height: 60px !important;
+    padding: 10px;
+
+}
+.btn-custom{
+    width: 100% !important;
+    background-color: #4e73df !important;
+    color: #fff !important;
+    margin-top: 30px
+
+}
+.btn-custom:hover{ 
+    width: 100%;
+    color: #4e73df !important;
+    background-color: #fff !important;
+    border: 1px solid #4e73df !important
+    
+}
+.modal-body.pharmacymodal {
+
+    height: 100vh !important;
+}
+.errormessage_files{
+    display: none ;
+}

@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="{% static 'css/switch.css' %}">
+    <link rel="stylesheet" href="{% static 'css/in_room.css' %}">
+   
+
+    <!-- <link rel="stylesheet" href="{% static 'room.css' %}"> -->
+    <title>Online Video Appointment</title>
+    <link rel = "icon" href="../../../static/images/logo.png"  type = "image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-RXf+QSDCUQs5uwRKaDoXt55jygZZm2V++WUZduaU/Ui/9EGp3f/2KZVahFZBKGH0s774sd3HmrhUy+SgOFQLVQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+<body>
+
+    <div class="container-fluid master" id="container">
+        <div id="timer_div"></div>
+        <div class="remote_div"></div>
+        <div class="waiting">
+            <h1 class="waiting" ></h1>
+           
+        </div>
+               
+        
+        
+        <div class="buttons">
+
+            
+                <input type="checkbox" disabled onclick="toggleLocalTrack('video')" value="1" id="toggler_video">
+
+            <!-- <a href="{% url 'video_app:HomeView' %}" id="disconnect" onclick="leaveRoom()">Disconnect</a>             -->
+            <button id="end_room" onclick="endRoom()"><i class="fas fa-phone"></i></button>            
+            <!-- <h4 class="switch-label">Local Video : </h4> -->
+                <input type="checkbox" disabled onclick="toggleLocalTrack('audio')" value="1" id="toggler_audio">
+               
+            <!-- <h4 class="switch-label">Local Audio : </h4> -->
+
+        </div>
+        <div id="local_media"></div>      
+        
+    </div>
+         
+
+    <script type="text/javascript">
+        context = {{ context|safe }};
+        // widget.init(context);
+    </script>
+    <script src="//media.twiliocdn.com/sdk/js/video/releases/2.0.0/twilio-video.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/room_script.js' %}" ></script>
+    
+</body>
+</html>
