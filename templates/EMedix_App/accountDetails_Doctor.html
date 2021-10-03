@@ -16,7 +16,7 @@
                     Account Details
                 </div>
                 <div class="card-body">
-                    <form id="accountdetailsform_Doctor" method="POST">{% csrf_token %}
+                    <form id="accountdetailsform_Doctor" method="POST" onsubmit="return checkqualification(event)">{% csrf_token %}
                    <div class="row account-detailsRow">
                     <div class="col-lg-6">
                         <label for="fname">First name</label>
@@ -50,7 +50,19 @@
                     </div>
                     <div class="col-lg-6">
                         <label for="qualification">Qualification</label>
-                        <input type="text" id="qualification" name="qualification" required placeholder="Enter your Qualification"/>
+                        <select required name="qualification" id="qualification" onchange="checkqualval()">
+                            <option value="Invalid" disabled selected>Please Select Your Qualification</option>
+                            <option value="MBBS">MBBS</option>
+                            <option value="MRCP">MRCP</option>
+                            <option value="FRCP">FRCP</option>
+                            <option value="MD">MD</option>
+                            <option value="BDS">BDS</option>
+                            <option value="FCPS">FCPS</option>
+                            <option value="FRCR">FRCR</option>
+                            <option value="MRCOG">MRCOG</option>
+                            
+                        </select>
+                        <div class=" error-message" id="errorqualification" style="display: none">* Please Select your Qualification</div>
                     </div>
                    
 
@@ -105,7 +117,35 @@
                        
                         <input type="submit" id="account-detailsSubmit" name="account-detailsSubmit" placeholder="Save" class="btn btn-custom"/>
                     </div>
-                   
+                   <script>
+
+                       function checkqualification(e){
+                        var qualification = document.getElementById('qualification').value;
+                        if (qualification == 'Invalid'){
+                        e.preventDefault();
+                        
+                           document.getElementById('errorqualification').style.display = 'block'
+                           return false;
+                        }
+                        else{
+                            document.getElementById('errorqualification').style.display = 'none'
+                        }
+                     
+
+                       }
+
+                       function checkqualval(){
+                        var qualification = document.getElementById('qualification').value;
+                        if (qualification == 'Invalid'){
+                            
+                           document.getElementById('errorqualification').style.display = 'block'
+                        }
+                        else{
+                            document.getElementById('errorqualification').style.display = 'none'
+                        }   
+                    
+                    }
+                   </script>
 
                    </div>
                 </form>

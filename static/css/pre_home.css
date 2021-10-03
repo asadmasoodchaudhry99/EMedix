@@ -1,0 +1,88 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  padding: 1.5em;
+  color: #222;
+}
+.logo {
+  font-family: "Great Vibes", cursive;
+  font-size: 1.37rem;
+}
+.container {
+  position: relative;
+  min-height: 100vh;
+}
+main {
+  padding-bottom: 3rem;
+}
+main > img {
+  position: fixed;
+  margin-left: 40vw;
+  top: 0;
+  opacity: 17%;
+  z-index: -1;
+  height: 80vh;
+}
+.hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 3rem;
+  position: relative;
+}
+h1 span {
+  display: block;
+}
+h1 img {
+  position: absolute;
+  height: 5rem;
+  top: -2rem;
+  right: 0;
+}
+.made {
+  font-size: 1.37rem;
+  text-align: center;
+}
+.easy {
+  font-size: 7rem;
+  background: linear-gradient(180deg, #f22f46 0%, #db00ff 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.hero-message {
+  font-family: "Roboto";
+  font-size: 1.62rem;
+}
+.cta {
+  text-decoration: none;
+}
+button {
+  font-size: 1.37rem;
+
+  color: white;
+  font-weight: bold;
+  width: 20rem;
+  padding: 0.35em 0.5em;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  border: none;
+  background: linear-gradient(180deg, #f22f46 0%, #db00ff 100%);
+  border-radius: 7px;
+  /* position: fixed; */
+  bottom: 2.5em;
+}
+footer {
+  font-weight: 300;
+  color: #444;
+  height: 3rem;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

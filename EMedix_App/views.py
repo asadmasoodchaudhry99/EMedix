@@ -19,6 +19,10 @@ from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
+#def testemail(request):
+ #   testemail = EmailMessage(subject='Test',body="Test Email",to=['asadmchaudhry0@gmail.com'])
+  #  testemail.send()
+
 def home(request):
     context = {}
     if request.user.is_authenticated:
@@ -183,7 +187,7 @@ def patient_details(request):
 def UpdateProfileDoctor(request):
     template = 'EMedix_App/updateProfile_doctor.html'
     context = {}
-    context['doctordetails'] = doctor.objects.get(user = request.user)
+    context['doctordetails'] = doctor.objects.filter(user = request.user)[0]
     if request.method == 'POST':
         doctorobj =  doctor.objects.get(user = request.user)
         doctorobj.phone_number = request.POST['pnumber']
@@ -325,7 +329,7 @@ def PatientDashboard(request):
     context['doctordata'] = bookingdata
     context['bookinglist'] = BookingAppointment.objects.filter(patient__user = request.user)
     context['totalbookings'] = len(context['bookinglist'])
-    context['upcomingbookings'] = len( BookingAppointment.objects.filter(patient__user = request.user, consultation_status = False ))
+    context['upcomingbookings'] = len(BookingAppointment.objects.filter(patient__user = request.user, consultation_status = False ))
     
     return render(request,template, context )
 
@@ -414,7 +418,7 @@ def stripe_config(request):
 def create_checkout_session(request):
     if request.method == 'GET':
         payment_id = request.GET['payment_id']
-        domain_url = 'https://192.168.100.16:8000/'
+        domain_url = 'https://e-medix.uc.r.appspot.com/'
         stripe.api_key = settings.STRIPE_SECRET_KEY
         try:
             # Create new Checkout Session for the order

@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
-
+import os
 
 
 
@@ -28,7 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'acm2&mkcm%$qhipc&-s8_7ic)n1wglebdeat7v9(6iuow_#u_6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = True #not os.getenv('GAE_APPLICATION', None)
 
 ALLOWED_HOSTS = ['*']
 
@@ -82,13 +82,41 @@ WSGI_APPLICATION = 'EMedix.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+import pymysql
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+pymysql.version_info=(1,4,6,'final',0)
+pymysql.install_as_MySQLdb()
+
+if os.getenv('GAE_APPLICATION', None):
+    DATABASES = {
+        'default' : {
+            'ENGINE' : 'django.db.backends.mysql',
+            'HOST': '/cloudsql/e-medix:us-central1:e-medix-instance',
+            'USER': 'admin',
+            'PASSWORD': '1a2b3c4d',
+            'NAME' : 'emedix_db'
+        }
+
     }
-}
+else:
+    DATABASES = {
+        'default' : {
+            'ENGINE' : 'django.db.backends.mysql',
+            'HOST' : '127.0.0.1',
+            'PORT': '3306',
+            'NAME': 'emedix_db',
+            'USER' : 'admin',
+            'PASSWORD': '1a2b3c4d'
+        }
+        
+        }
+    
+#DATABASES = {
+ #   'default': {
+  #      'ENGINE': 'django.db.backends.sqlite3',
+   #     'NAME': BASE_DIR / 'db.sqlite3',
+    #}
+#}
 
 
 # Password validation
@@ -127,22 +155,30 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
- 
-]
+#STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+#STATICFILES_DIRS = [ BASE_DIR / "static" ]
+
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = '/home'
+#os.path.join(BASE_DIR, 'media')
+#MEDIA_ROOT = BASE_DIR / "media"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = "infoemedixhealthcare@gmail.com"
-EMAIL_HOST_PASSWORD = "emedix123"
+#FOR LOCAL 
+#EMAIL_HOST_PASSWORD = "ebcbbpnhvzcysrcs"
+#FOR PRODUCTION
+EMAIL_HOST_PASSWORD = "jupjhmrooqtybjvy"
+
+
 
 SESSION_EXPIRE_SECONDS = 600  # 10 mins
 SESSION_EXPIRE_AFTER_LAST_ACTIVITY = True

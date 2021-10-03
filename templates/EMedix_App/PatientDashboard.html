@@ -219,7 +219,9 @@
                 <label for="timeofbooking" class="text-primary mb-0">
                     Timing:
                 </label>
-               <input type="datetime-local" required id="timeofbooking" name="timeofbooking" class="book-appointment-fields" min="20-4-1999"/>
+               <input type="datetime-local" required id="timeofbooking" name="timeofbooking" class="book-appointment-fields" min="" onchange="checkdate()"/>
+               <div class=" error-message" style="color:#cc0000; font-size: 10px; display: none;" id="errortime">* Please Select A Valid Time and Date</div>
+                    
             </div>
             <script>
 
@@ -263,6 +265,53 @@
           <button type="submit" class="btn btn-primary" id="submitBtn" >Book Appointment</button>
         </div>
     </form>
+
+
+    <script>
+
+        function checkdate(){
+
+            
+var elem = document.getElementById("timeofbooking"); 
+var tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
+elem.min = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 16);
+ 
+ // elem.min = d.toISOString().slice(0,16);
+ var datevalue = document.getElementById('timeofbooking').value.slice(0,10); 
+      var datevaluemin = document.getElementById('timeofbooking').getAttribute('min').slice(0,10); 
+
+        if(datevalue < datevaluemin){
+         
+
+           document.getElementById('errortime').style.display = 'block';
+           document.getElementById('submitBtn').disabled = true;
+
+        }
+
+        else if(datevalue == datevaluemin){
+
+            var timevalue = document.getElementById('timeofbooking').value.slice(11,17).split(":").join(""); 
+            var timevaluemin = document.getElementById('timeofbooking').getAttribute('min').slice(11,17).split(":").join("");
+            
+            if(timevalue < timevaluemin){
+                document.getElementById('errortime').style.display = 'block';
+                document.getElementById('submitBtn').disabled = true;
+            }
+            else{
+                document.getElementById('errortime').style.display = 'none';
+                document.getElementById('submitBtn').disabled = false;
+            }
+       
+        }
+
+        else{
+            document.getElementById('errortime').style.display = 'none';
+                document.getElementById('submitBtn').disabled = false; 
+        }
+
+ 
+        }
+    </script>
       </div>
     </div>
   </div>

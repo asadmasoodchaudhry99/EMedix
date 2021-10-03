@@ -51,4 +51,7 @@ path('changepassword' , views.changepassword, name= 'changepassword'),
 path('uploadrecords' , views.uploadrecords, name= 'uploadrecords'), 
 #View Records
 path('viewrecords/<patid>' , views.viewrecords, name= 'viewrecords'), 
+
+#Testing Email
+#path('testemail', views.testemail, name='testemail')
 ]

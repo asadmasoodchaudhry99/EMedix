@@ -1,0 +1,66 @@
+@font-face {
+  font-family: roboto;
+  src: url("../font/roboto/Roboto-Thin.ttf");
+}
+@font-face {
+  font-family: montserrat;
+  src: url("../font/montserrat/Montserrat-Medium.ttf");
+}
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100vh;
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    196deg,
+    rgba(2, 0, 36, 1) 0%,
+    rgba(9, 9, 121, 1) 35%,
+    rgba(0, 212, 255, 1) 100%
+  );
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  grid-template-areas:
+    "headings"
+    "qr"
+    "warning"
+    "create_room";
+  grid-template-rows: minmax(13rem, 25%) minmax(200px, 25%) 5% 45%;
+  height: 100vh;
+}
+.headings,
+#qr_container,
+#warning,
+button {
+  flex: 1;
+}
+
+.headings {
+  grid-area: headings;
+  position: relative;
+  /* padding: 2rem; */
+}
+#qr_container {
+  grid-area: qr;
+  text-align: center;
+}
+
+.headings h1 {
+  text-align: center;
+  font-family: montserrat, sans-serif;
+  font-size: 2.7rem;
+  color: #eee;
+  margin: 2rem auto;
+  width: 90%;
+}
+#warning {
+  grid-area: warning;
+}

@@ -17,7 +17,7 @@ class userinfo(models.Model):
 
 class patient(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    phone_number = models.IntegerField(default=0)
+    phone_number = models.CharField(max_length=100, default='')
     age = models.IntegerField(default=0)
     country = models.CharField(max_length=100, default='')
     state = models.CharField(max_length=100, default='')
@@ -30,7 +30,7 @@ class patient(models.Model):
         
 class doctor(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    phone_number = models.IntegerField(default=0)
+    phone_number = models.CharField(max_length=100, default='')
     age = models.IntegerField(default=0)
     qualification = models.CharField(max_length=100, default='')
     department = models.CharField(max_length=100, default='')
@@ -48,7 +48,7 @@ class doctor(models.Model):
 
 class clinic(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    phone_number = models.IntegerField(default=0)
+    phone_number = models.CharField(max_length=100, default='')
     registration_number = models.CharField(max_length= 100, default='')
     country = models.CharField(max_length=100, default='')
     state = models.CharField(max_length=100, default='')
