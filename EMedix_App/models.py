@@ -69,6 +69,7 @@ class BookingAppointment(models.Model):
     prescription = models.TextField(max_length=2000,default='')
     prescription_status = models.BooleanField(default=False)
     consultation_status = models.BooleanField(default=False)
+    Paymentstatus = models.BooleanField(default=False)
     def __str__(self):
         return self.patient.user.get_full_name() + " booked " + self.doctor.user.get_full_name()
 
@@ -77,6 +78,8 @@ class medical_records(models.Model):
     desc = models.TextField()
     date = models.DateField(auto_now_add=True)
     upfile = models.FileField()
+    recordname = models.CharField(max_length=100, default='')
+    fileid = models.IntegerField(default=0)
 
     def __str__(self):
         return self.user.username

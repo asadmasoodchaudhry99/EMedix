@@ -20,8 +20,17 @@
                    <div class="row account-detailsRow">
                     <div class="col-lg-6">
                         <label for="fname">First name</label>
-                        <input type="text" id="fname" name="fname" required placeholder="Enter your First Name"/>
+                        <input type="text" id="fname" name="fname" required placeholder="Enter your First Name"  onkeyup="checkval()" oninput="checkval()"/>
                     </div>
+                    <script>
+                        function checkval(){
+
+                        var test = document.getElementById('fname').value.split(' ').join('');
+                        document.getElementById('fname').value = test;
+                        
+
+}
+                </script>
                     <div class="col-lg-6">
                         <label for="lname">Last name</label>
                         <input type="text" id="lname" name="lname" required placeholder="Enter your Last Name"/>

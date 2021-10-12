@@ -161,8 +161,9 @@
             <div class="alert alert-danger mt-1 errormessage_files" id="error_message">*No File Attached</div>
             <label class="text-primary mb-0" for="filerecorddesc">Description:</label>
 
-            <textarea class="book-appointment-fields" type="file" id="filerecorddesc" name="filerecorddesc"></textarea>
-        
+            <textarea class="book-appointment-fields" type="file" id="filerecorddesc" onchange="checktext()" name="filerecorddesc"></textarea>
+            <div class="alert alert-danger mt-1 errormessage_files" id="error_message_text">*Kindly Add the Description of the File.</div>
+      
         </div>
         <div class="modal-footer">
         
@@ -180,13 +181,28 @@
                            function checkfiles(){
                             document.getElementById("error_message").style = "display: none;"
                            }
+                           function checktext(){
+                            document.getElementById("error_message_text").style = "display: none;"
+                                
+                           }
                            function validateSubmitFiles(){
                             if( document.getElementById("filerecord").files.length == 0 ){
                                 document.getElementById("error_message").style = "display: block;"
                                 
+                            if(document.getElementById("filerecorddesc").value.length == 0){
+                            
+                                document.getElementById("error_message_text").style = "display: block;"
+                                
+                            }
                             }
                                 else{
+                                    if(document.getElementById("filerecorddesc").value.length == 0){
+                                document.getElementById("error_message_text").style = "display: block;"
+                                
+                            }
+                            else{
                             document.getElementById('up').submit();
+                        }
                            }
                              
 
@@ -227,8 +243,8 @@
                                     <tbody>
                                         {% for i in objs %}
                                      <tr>
-                                         <td><a target="_blank" href="{{i.upfile.name}}">
-                                             {{i.upfile.name}}</a></td>
+                                         <td><a target="_blank" href="https://storage.googleapis.com/file-store-emedix/{{i.fileid}}{{i.recordname}}">
+                                            {{i.fileid}} - {{i.recordname}}</a></td>
                                          <td>{{i.date}}</td>
                                         <td>{{i.desc}}</td>
                                      </tr>

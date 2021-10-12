@@ -161,10 +161,10 @@
                                         
                                         {% for i in objs %}
                                         <tr>
-                                            <td><a target="_blank" href="{{i.upfile.name}}">
-                                                {{i.upfile.name}}</a></td>
-                                            <td>{{i.date}}</td>
-                                           <td>{{i.desc}}</td>
+                                            <td><a target="_blank" href="https://storage.googleapis.com/file-store-emedix/{{i.fileid}}{{i.recordname}}">
+                                                {{i.fileid}} - {{i.recordname}}</a></td>
+                                             <td>{{i.date}}</td>
+                                            <td>{{i.desc}}</td>
                                         </tr>
                                         {% endfor %}
 

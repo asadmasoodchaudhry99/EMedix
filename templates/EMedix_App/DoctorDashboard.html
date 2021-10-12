@@ -247,7 +247,7 @@
           <div class="card">
               <div class="card-body Prescription-view">
                
-                <form method="POST" > {% csrf_token %}
+                <form method="POST"  > {% csrf_token %}
                 <label class='text-primary' for="prescription" class="d">
                     Write Prescription
                 </label>
@@ -256,6 +256,7 @@
                 
                 <input type="submit" class="btn btn-custom">
             </form>
+            
               </div>
           </div>
         </div>
@@ -306,7 +307,12 @@
 
             </div>
             <!-- End of Main Content -->
+<script>
 
+    function reloadpage(){
+        window. setInterval('refresh()', 10000);
+    }
+</script>
             <!-- Footer -->
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
@@ -494,7 +500,11 @@ var myLineChart = new Chart(ctx, {
 });
 
     </script>
-  
+  <script>
+    if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+    }
+    </script>
         
     <!-- Page level plugins -->
     <script src="static/dashboard/vendor/datatables/jquery.dataTables.min.js"></script>

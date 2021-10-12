@@ -8,14 +8,17 @@ from .models import *
 from django.contrib.auth.decorators import login_required
 from django.core.mail import EmailMessage
 from django.views.decorators.csrf import csrf_exempt # new
-from django.views.generic.base import TemplateView
+#from django.views.generic.base import TemplateView
 from django.conf import settings # new
 import stripe
 from random import randint
 import datetime
 from twilio.jwt.access_token import AccessToken
 from   twilio.jwt.access_token.grants import VideoGrant
-from django.core.files.storage import FileSystemStorage
+
+from google.cloud import storage
+
+#from django.core.files.storage import FileSystemStorage
 
 # Create your views here.
 
@@ -314,6 +317,9 @@ def ClinicDashboard(request):
 
 @login_required(login_url='/login')
 def PatientDashboard(request):
+    objs = BookingAppointment.objects.filter(Paymentstatus = False)
+    for i in objs:
+        i.delete()
     context={}
     template = 'EMedix_App/PatientDashboard.html'
     bookingdata = {}
@@ -363,6 +369,9 @@ def monthlyearnings(earnings):
 
 @login_required(login_url='/login') 
 def DoctorDashboard(request):
+    objs = BookingAppointment.objects.filter(Paymentstatus = False)
+    for i in objs:
+        i.delete()
     context={}
     template = 'EMedix_App/DoctorDashboard.html'
     context['bookinglist'] = BookingAppointment.objects.filter(doctor__user = request.user)
@@ -389,7 +398,8 @@ def ConsultationCharges(request, doctorid):
     doctorobj = doctor.objects.get(pk =doctorid)
     return HttpResponse(doctorobj.consultationcharges)
 
- 
+
+@login_required(login_url='/login') 
 def book_appointment(request):
 
     if request.method == 'POST':
@@ -406,7 +416,10 @@ def book_appointment(request):
         
         return redirect('/create-checkout-session?payment_id={}'.format(bookingobj.id))
     return redirect('/PatientDashboard')
-    
+
+
+
+
 @csrf_exempt
 def stripe_config(request):
     if request.method == 'GET':
@@ -433,7 +446,7 @@ def create_checkout_session(request):
             bookingObj = BookingAppointment.objects.filter(pk = payment_id)[0]
             checkout_session = stripe.checkout.Session.create(
                 success_url=domain_url + 'success?session_id={CHECKOUT_SESSION_ID}',
-                cancel_url=domain_url + 'cancelled/',
+                cancel_url=domain_url + 'error/',
                 payment_method_types=['card'],
                 mode='payment',
                 line_items=[
@@ -452,8 +465,11 @@ def create_checkout_session(request):
         except Exception as e:
             return JsonResponse({'error': str(e)})
 
+@login_required(login_url='/login') 
 def success(request):
     bookingobj = list(BookingAppointment.objects.filter(patient__user = request.user))[-1]
+    bookingobj.Paymentstatus = True
+    bookingobj.save()
     emailpatient = EmailMessage(subject='Appointment Status',body="Your Appointment has been Booked. \n Doctor Name: {} \n Time: {} \n Consultation Charges = {} \n Thank you for booking an appointment through E-Medix. \n E-Medix(HealthCare anytime anywhere \n".format(bookingobj.doctor.user.get_full_name() ,bookingobj.timing, bookingobj.doctor.consultationcharges),to=[bookingobj.patient.user.email])
     emailpatient.send()
     emaildoctor = EmailMessage(subject='Appointment Status',body="You have a new patient booking. \n Patient Name: {}  \n Time: {} \n Consultation Charges = {} \n Thank you for using E-Medix. \n E-Medix(HealthCare anytime anywhere \n".format(bookingobj.patient.user.get_full_name() ,bookingobj.timing, bookingobj.doctor.consultationcharges),to=[bookingobj.doctor.user.email])
@@ -463,6 +479,8 @@ def success(request):
     return render(request,template)
 
 
+
+@login_required(login_url='/login') 
 def error(request):
     bookingobj = list(BookingAppointment.objects.filter(patient__user = request.user))[-1]
     emailpatient = EmailMessage(subject='Appointment Status',body="Your Payment could not be processed. Kindly try to book the appointment again.",to=[bookingobj.patient.user.email])
@@ -489,6 +507,8 @@ def changepassword(request):
             context['message'] = 'Password not correct!'
     return render(request,template,context)
 
+
+filenamecounter = 0
 @login_required(login_url='/login') 
 def uploadrecords(request):
     template = 'EMedix_App/uploadrecords.html'
@@ -497,14 +517,39 @@ def uploadrecords(request):
         obj = medical_records()
         obj.user = request.user
         obj.desc = request.POST['filerecorddesc']
+        global filenamecounter 
         image = request.FILES['filerecord']
-        fs = FileSystemStorage()
-        filename = fs.save(image.name, image)
-        obj.upfile = fs.url(filename)
+        filename = str(filenamecounter) + image.name
+
+        #print(filename)
+        client = storage.Client('e-Medix')
+        bucket = client.get_bucket('file-store-emedix')
+        blob = bucket.blob(filename)
+        blob.upload_from_string(image.file.read())
+        obj.recordname = image.name
+        obj.fileid = filenamecounter
+ 
         obj.save()
+
+        #print(obj.recordname)
+        
+        #print(filenamecounter)
+   
+        filenamecounter += 1
+        #print(filenamecounter)
+     
+
+     
+        #fs = FileSystemStorage()
+        #filename = fs.save(image.name, image)
+        #obj.upfile = fs.url(filename)
+        #obj.save()
+        
         context['message'] ='File Successfully Uploaded!'
+     
     context['objs'] = medical_records.objects.filter(user=request.user)
     context['patientdetails'] = patient.objects.filter(user = request.user)[0]
+    
     print(context)
     return render(request,template,context)
 
